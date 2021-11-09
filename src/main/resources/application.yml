@@ -35,3 +35,9 @@ resilience4j.circuitbreaker:
       failureRateThreshold: 60
       eventConsumerBufferSize: 10
       registerHealthIndicator: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
