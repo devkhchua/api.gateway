@@ -11,7 +11,7 @@ pipeline {
             steps{
                 script{
                     def dockerHome = tool 'Docker'
-                    def mavenHome  = tool 'Maven'
+                    def mavenHome  = tool 'Maven3'
                     env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
                 }
             }
