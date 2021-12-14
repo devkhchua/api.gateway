@@ -28,9 +28,6 @@ pipeline {
                 }
                 sh 'cd temp'
                 sh 'pwd'
-                sh 'mvn install'
-                sh 'cd ..'
-                sh 'pwd'
             }
         }
     }
