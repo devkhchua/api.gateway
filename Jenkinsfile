@@ -25,9 +25,11 @@ pipeline {
                     git branch: "master",
                     credentialsId: 'GIT_CREDENTIAL',
                     url: 'https://github.com/devkhchua/config.service.git'
+
+                    sh 'pwd'
+                    sh 'mvn clean install -DskipTests'
+
                 }
-                sh 'ls -lrt'
-                sh 'cd temp'
                 sh 'pwd'
             }
         }
