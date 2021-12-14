@@ -1,7 +1,7 @@
 pipeline {
     environment {
-        imagename = "482680362026.dkr.ecr.ap-southeast-1.amazonaws.com/cdx-otp"
-        //registryCredential = 'ecr_credentials'
+        imagename = "devkhchua/api.gateway"
+        registryCredential = 'docker_credentials'
         dockerImage = ''
      }
 
@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Initialize') {
             steps{
+                echo "$BRANCH_NAME"
                 script{
                     def dockerHome = tool 'Docker'
                     def mavenHome  = tool 'Maven3'
@@ -17,21 +18,51 @@ pipeline {
             }
         }
 
-        stage('CheckoutModule1') {
+        stage('Building Package') {
             steps {
-                sh 'mkdir -p temp'
-                dir("temp")
-                {
-                    git branch: "master",
-                    credentialsId: 'GIT_CREDENTIAL',
-                    url: 'https://github.com/devkhchua/config.service.git'
-
-                    sh 'pwd'
-                    sh 'mvn clean install -DskipTests'
-
-                }
-                sh 'pwd'
+                sh 'mvn clean package'
             }
         }
+
+        stage('Running Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Building Docker Image') {
+            steps{
+                script {
+                  dockerImage = docker.build imagename
+                }
+            }
+        }
+
+        stage('Deploying Docker Image') {
+            steps{
+                script {
+                  docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push('latest')
+                  }
+                }
+            }
+        }
+
+        stage('Removing Unused Docker Image') {
+            steps{
+                sh "docker rmi $imagename:latest"
+            }
+        }
+
+        /* stage ('Deploy into Kubernetes') {
+            steps{
+                sshagent(credentials : ['KUBE_MACHINE']) {
+                    sh 'ssh -v Jordan@192.168.0.100'
+                    sh 'ssh Jordan@192.168.0.100 kubectl apply -f C:/Coding/projects/learning-java/k8s/api-gateway.yml'
+                    sh 'ssh Jordan@192.168.0.100 kubectl delete pods -l app=api-gateway-app'
+                    sh 'ssh Jordan@192.168.0.100 kubectl get all'
+                }
+            }
+        } */
     }
 }
