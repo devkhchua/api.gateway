@@ -27,29 +27,10 @@ pipeline {
                     url: 'https://github.com/devkhchua/config.service.git'
                 }
                 sh 'cd temp'
+                sh 'pwd'
                 sh 'mvn install'
                 sh 'cd ..'
                 sh 'pwd'
-            }
-        }
-
-        stage('Building Package') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Running Tests') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-
-        stage('Building Docker Image') {
-            steps{
-                script {
-                  dockerImage = docker.build imagename
-                }
             }
         }
     }
