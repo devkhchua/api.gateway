@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Initialize') {
             steps{
-                echo "$BRANCH_NAME"
+                echo env.GIT_BRANCH
                 script{
                     def dockerHome = tool 'Docker'
                     def mavenHome  = tool 'Maven3'
