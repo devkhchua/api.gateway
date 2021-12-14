@@ -26,8 +26,9 @@ pipeline {
                     credentialsId: 'GIT_CREDENTIAL',
                     url: 'https://github.com/devkhchua/config.service.git'
                 }
-
+                sh 'cd CheckoutModule1'
                 sh 'mvn install'
+                sh 'cd ..'
             }
         }
 
