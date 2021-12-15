@@ -18,6 +18,20 @@ pipeline {
             }
         }
 
+        stage('CheckoutModule1') {
+            steps {
+                sh 'mkdir -p temp'
+                dir("temp")
+                {
+                    git branch: env.GIT_BRANCH,
+                    credentialsId: 'GIT_CREDENTIAL',
+                    url: 'https://github.com/devkhchua/config.service.git'
+
+                    sh 'mvn install'
+                }
+            }
+        }
+
 //         stage('Building Package') {
 //             steps {
 //                 sh 'mvn clean package'
@@ -66,27 +80,5 @@ pipeline {
                 }
             }
         } */
-    }
-
-    post {
-        success {
-            echo 'Build Success!'
-            emailext (
-                to: 'developer.khchua@gmail.com',
-                subject: '$DEFAULT_SUBJECT',
-                body: '$DEFAULT_CONTENT',
-                mimeType: 'text/html'
-            );
-        }
-
-        failure {
-            echo 'Build Failed!'
-            emailext (
-                to: 'developer.khchua@gmail.com',
-                subject: '$DEFAULT_SUBJECT',
-                body: '$DEFAULT_CONTENT',
-                mimeType: 'text/html'
-            );
-        }
     }
 }
