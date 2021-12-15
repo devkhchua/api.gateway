@@ -1,6 +1,5 @@
 pipeline {
     environment {
-        branch = "${GIT_LOCAL_BRANCH}"
         imagename = "devkhchua/api.gateway"
         registryCredential = 'docker_credentials'
         dockerImage = ''
@@ -21,15 +20,16 @@ pipeline {
 
         stage('CheckoutModule1') {
             steps {
-                sh 'mkdir -p temp'
-                dir("temp")
-                {
-                    git branch: "${branch}",
-                    credentialsId: 'GIT_CREDENTIAL',
-                    url: 'https://github.com/devkhchua/config.service.git'
-
-                    sh 'mvn install'
-                }
+            echo $GIT_BRANCH
+//                 sh 'mkdir -p temp'
+//                 dir("temp")
+//                 {
+//                     git branch: "master",
+//                     credentialsId: 'GIT_CREDENTIAL',
+//                     url: 'https://github.com/devkhchua/config.service.git'
+//
+//                     sh 'mvn install'
+//                 }
             }
         }
 
