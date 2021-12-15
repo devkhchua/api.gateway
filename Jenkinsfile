@@ -70,19 +70,22 @@ pipeline {
 
     post {
         success {
-            echo 'Build Succeed!'
-            mail to: 'jordan.chuakenghui@appfuxion.com',
-                subject: "${currentBuild.fullDisplayName} Pipeline Build Succeed",
-                body: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
+            echo 'Build Success!'
+            echo $DEFAULT_RECIPIENTS
+            echo $DEFAULT_SUBJECT
+            echo $DEFAULT_CONTENT
+            //mail to: 'jordan.chuakenghui@appfuxion.com',
+            //    subject: "Build Success in Jenkins Pipeline : ${currentBuild.fullDisplayName}",
+            //    body: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
             // slackSend channel: '#ewx-sba-fo-server',
             //     color: 'good',
             //     message: ":smile:The pipeline ${currentBuild.fullDisplayName} completed successfully."
         }
 
         failure {
-            echo 'Build Failed!!'
+            echo 'Build Failed!'
             mail to: 'jordan.chuakenghui@appfuxion.com',
-                subject: "${currentBuild.fullDisplayName} Pipeline Build Failed",
+                subject: "Build Failed in Jenkins Pipeline : ${currentBuild.fullDisplayName}",
                 body: "The pipeline ${currentBuild.fullDisplayName} exited with error in ${env.JOB_NAME} #${env.BUILD_NUMBER}."
             // slackSend channel: '#ewx-sba-fo-server',
             //     color: 'RED',
