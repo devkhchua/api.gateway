@@ -18,12 +18,12 @@ pipeline {
             }
         }
 
-        stage('Building Package') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
-
+//         stage('Building Package') {
+//             steps {
+//                 sh 'mvn clean package'
+//             }
+//         }
+//
 //         stage('Running Tests') {
 //             steps {
 //                 sh 'mvn test'
@@ -89,5 +89,6 @@ pipeline {
                 body: '$DEFAULT_CONTENT',
                 mimeType: 'text/html'
             );
+        }
     }
 }
