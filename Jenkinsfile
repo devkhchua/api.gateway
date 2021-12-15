@@ -23,7 +23,7 @@ pipeline {
                 sh 'mkdir -p temp'
                 dir("temp")
                 {
-                    git branch: env.GIT_BRANCH,
+                    git branch: ${GIT_BRANCH#*/},
                     credentialsId: 'GIT_CREDENTIAL',
                     url: 'https://github.com/devkhchua/config.service.git'
 
