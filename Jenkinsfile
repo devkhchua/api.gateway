@@ -20,16 +20,16 @@ pipeline {
 
         stage('CheckoutModule1') {
             steps {
-            echo "${GIT_BRANCH,fullName=false}"
-//                 sh 'mkdir -p temp'
-//                 dir("temp")
-//                 {
-//                     git branch: "master",
-//                     credentialsId: 'GIT_CREDENTIAL',
-//                     url: 'https://github.com/devkhchua/config.service.git'
-//
-//                     sh 'mvn install'
-//                 }
+            echo "${GIT_BRANCH}"
+                sh 'mkdir -p temp'
+                dir("temp")
+                {
+                    git branch: "${GIT_BRANCH}",
+                    credentialsId: 'GIT_CREDENTIAL',
+                    url: 'https://github.com/devkhchua/config.service.git'
+
+                    sh 'mvn install'
+                }
             }
         }
 
