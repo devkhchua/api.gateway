@@ -27,18 +27,20 @@ pipeline {
         stage('Running Tests') {
             steps {
                 sh 'mvn test'
+
+                echo sh(script: 'env|sort', returnStdout: true)
             }
         }
 
-        stage('Building Docker Image') {
+/*         stage('Building Docker Image') {
             steps {
                 script {
                     dockerImage = docker.build imagename
                 }
             }
-        }
+        } */
 
-        stage('Deploying Docker Image') {
+/*         stage('Deploying Docker Image') {
             steps {
                 script {
                     docker.withRegistry('', registryCredential) {
@@ -46,13 +48,13 @@ pipeline {
                     }
                 }
             }
-        }
+        } */
 
-        stage('Removing Unused Docker Image') {
+/*         stage('Removing Unused Docker Image') {
             steps {
                 sh "docker rmi $imagename:latest"
             }
-        }
+        } */
 
         /* stage ('Deploy into Kubernetes') {
             steps{
