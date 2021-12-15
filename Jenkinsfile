@@ -71,8 +71,6 @@ pipeline {
     post {
         success {
             echo 'Build Success!'
-            echo $DEFAULT_SUBJECT
-            echo $DEFAULT_CONTENT
             mail to: 'jordan.chuakenghui@appfuxion.com',
                 subject: "",
                 body: ""
