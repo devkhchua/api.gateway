@@ -71,12 +71,13 @@ pipeline {
     post {
         success {
             echo 'Build Success!'
-            mail to: 'jordan.chuakenghui@appfuxion.com',
-                subject: "",
-                body: ""
-            // slackSend channel: '#ewx-sba-fo-server',
-            //     color: 'good',
-            //     message: ":smile:The pipeline ${currentBuild.fullDisplayName} completed successfully."
+            emailext (
+                to: 'jordan.chuakenghui@appfuxion.com',
+                replyTo: 'jordan.chuakenghui@appfuxion.com',
+                subject: '$DEFAULT_SUBJECT',
+                body: '$DEFAULT_CONTENT',
+                mimeType: 'text/html'
+            );
         }
 
         failure {
