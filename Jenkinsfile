@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        branch = ${GIT_LOCAL_BRANCH}
+        branch = "${GIT_LOCAL_BRANCH}"
         imagename = "devkhchua/api.gateway"
         registryCredential = 'docker_credentials'
         dockerImage = ''
@@ -24,7 +24,7 @@ pipeline {
                 sh 'mkdir -p temp'
                 dir("temp")
                 {
-                    git branch: ${branch},
+                    git branch: "${branch}",
                     credentialsId: 'GIT_CREDENTIAL',
                     url: 'https://github.com/devkhchua/config.service.git'
 
