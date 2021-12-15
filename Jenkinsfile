@@ -71,7 +71,11 @@ pipeline {
     post {
         success {
             echo 'Build Success!'
-            mail to: 'jordan.chuakenghui@appfuxion.com'
+            echo $DEFAULT_SUBJECT
+            echo $DEFAULT_CONTENT
+            mail to: 'jordan.chuakenghui@appfuxion.com',
+                subject: "Build Success in Jenkins Pipeline : ${currentBuild.fullDisplayName}",
+                body: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
             // slackSend channel: '#ewx-sba-fo-server',
             //     color: 'good',
             //     message: ":smile:The pipeline ${currentBuild.fullDisplayName} completed successfully."
