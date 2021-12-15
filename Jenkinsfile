@@ -20,7 +20,7 @@ pipeline {
 
         stage('CheckoutModule1') {
             steps {
-            echo "${env.GIT_LOCAL_BRANCH}"
+            echo sh(script: 'env|sort', returnStdout: true)
                 sh 'mkdir -p temp'
                 dir("temp")
                 {
