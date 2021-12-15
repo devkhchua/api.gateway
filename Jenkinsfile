@@ -17,10 +17,7 @@ pipeline {
 
                     if (env.BRANCH_NAME == 'master') {
                     echo 'build for deployment'
-                    emailext body: '<p>Dear,</p>
-                                    <p>This is an automated email.<br />Jenkins Pipeline Build Started on: <strong>$BUILD_ID</strong><br />Project: $PROJECT_NAME - Build # $BUILD_NUMBER<br />Branch: $GIT_BRANCH</p>
-                                    <p>Thanks.</p>
-                                    <p>Regards,<br />DevOps Automation</p>',
+                    emailext body: '123124124124',
                         subject: 'Build Started in Jenkins Pipeline : $PROJECT_NAME - Build # $BUILD_NUMBER',
                         mimeType: 'text/html',
                         to: '$DEFAULT_RECIPIENTS'
