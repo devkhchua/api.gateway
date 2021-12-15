@@ -73,8 +73,8 @@ pipeline {
             echo 'Build Success!'
             mail to: 'jordan.chuakenghui@appfuxion.com',
                 replyTo: 'jordan.chuakenghui@appfuxion.com',
-                subject: '$DEFAULT_SUBJECT',
-                body: '$DEFAULT_CONTENT',
+                subject: $DEFAULT_SUBJECT,
+                body: $DEFAULT_CONTENT,
                 mimeType: 'text/html'
         }
 
