@@ -18,19 +18,19 @@ pipeline {
             }
         }
 
-        stage('Building Package') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Running Tests') {
-            steps {
-                sh 'mvn test'
-
-                echo sh(script: 'env|sort', returnStdout: true)
-            }
-        }
+//         stage('Building Package') {
+//             steps {
+//                 sh 'mvn clean package'
+//             }
+//         }
+//
+//         stage('Running Tests') {
+//             steps {
+//                 sh 'mvn test'
+//
+//                 echo sh(script: 'env|sort', returnStdout: true)
+//             }
+//         }
 
 /*         stage('Building Docker Image') {
             steps {
@@ -82,12 +82,12 @@ pipeline {
 
         failure {
             echo 'Build Failed!'
-            mail to: 'jordan.chuakenghui@appfuxion.com',
-                subject: "Build Failed in Jenkins Pipeline : ${currentBuild.fullDisplayName}",
-                body: "The pipeline ${currentBuild.fullDisplayName} exited with error in ${env.JOB_NAME} #${env.BUILD_NUMBER}."
-            // slackSend channel: '#ewx-sba-fo-server',
-            //     color: 'RED',
-            //     message: ":rage:The pipeline ${currentBuild.fullDisplayName} exited with error in ${env.JOB_NAME} #${env.BUILD_NUMBER}."
-        }
+            emailext (
+                to: 'jordan.chuakenghui@appfuxion.com',
+                replyTo: 'jordan.chuakenghui@appfuxion.com',
+                subject: '$DEFAULT_SUBJECT',
+                body: '$DEFAULT_CONTENT',
+                mimeType: 'text/html'
+            );
     }
 }
