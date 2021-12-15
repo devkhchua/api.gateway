@@ -15,8 +15,7 @@ pipeline {
                     def mavenHome = tool 'Maven3'
                     env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
 
-                    if ["$BRANCH_NAME".contains("master")]
-                    then
+                    if (env.BRANCH_NAME == 'master') {
                     echo 'build for deployment'
                     emailext body: '<p>Dear,</p>
                                     <p>This is an automated email.<br />Jenkins Pipeline Build Started on: <strong>$BUILD_ID</strong><br />Project: $PROJECT_NAME - Build # $BUILD_NUMBER<br />Branch: $GIT_BRANCH</p>
@@ -25,7 +24,7 @@ pipeline {
                         subject: 'Build Started in Jenkins Pipeline : $PROJECT_NAME - Build # $BUILD_NUMBER',
                         mimeType: 'text/html',
                         to: '$DEFAULT_RECIPIENTS'
-                    fi
+                    }
                 }
             }
         }
