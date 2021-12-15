@@ -71,7 +71,7 @@ pipeline {
     post {
         success {
             echo 'Build Success!'
-            emailext (
+            mail to (
                 to: 'jordan.chuakenghui@appfuxion.com',
                 replyTo: 'jordan.chuakenghui@appfuxion.com',
                 subject: '$DEFAULT_SUBJECT',
