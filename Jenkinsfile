@@ -72,7 +72,7 @@ pipeline {
         success {
             echo 'Build Success!'
             emailext (
-                to: 'jordan.chuakenghui@appfuxion.com',
+                to: 'developer.khchua@gmail.com',
                 subject: '$DEFAULT_SUBJECT',
                 body: '$DEFAULT_CONTENT',
                 mimeType: 'text/html'
@@ -82,7 +82,7 @@ pipeline {
         failure {
             echo 'Build Failed!'
             emailext (
-                to: 'jordan.chuakenghui@appfuxion.com',
+                to: 'developer.khchua@gmail.com',
                 subject: '$DEFAULT_SUBJECT',
                 body: '$DEFAULT_CONTENT',
                 mimeType: 'text/html'
