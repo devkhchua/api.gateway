@@ -71,13 +71,11 @@ pipeline {
     post {
         success {
             echo 'Build Success!'
-            mail to (
-                to: 'jordan.chuakenghui@appfuxion.com',
+            mail to: 'jordan.chuakenghui@appfuxion.com',
                 replyTo: 'jordan.chuakenghui@appfuxion.com',
                 subject: '$DEFAULT_SUBJECT',
                 body: '$DEFAULT_CONTENT',
                 mimeType: 'text/html'
-            );
         }
 
         failure {
