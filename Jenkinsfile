@@ -20,11 +20,11 @@ pipeline {
 
         stage('CheckoutModule1') {
             steps {
-            echo "${GIT_BRANCH}"
+            echo "${GIT_LOCAL_BRANCH}"
                 sh 'mkdir -p temp'
                 dir("temp")
                 {
-                    git branch: "${GIT_BRANCH}",
+                    git branch: "${GIT_LOCAL_BRANCH}",
                     credentialsId: 'GIT_CREDENTIAL',
                     url: 'https://github.com/devkhchua/config.service.git'
 
