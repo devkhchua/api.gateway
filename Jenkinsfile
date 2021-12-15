@@ -20,7 +20,7 @@ pipeline {
 
         stage('CheckoutModule1') {
             steps {
-            echo "${GIT_BRANCH}"
+            echo "${GIT_BRANCH#/}"
 //                 sh 'mkdir -p temp'
 //                 dir("temp")
 //                 {
