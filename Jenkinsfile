@@ -14,62 +14,72 @@ pipeline {
                     def dockerHome = tool 'Docker'
                     def mavenHome = tool 'Maven3'
                     env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+
+                    if ["$BRANCH_NAME".contains("master")]
+                    then
+                    echo 'build for deployment'
+                    emailext body: '<p>Dear,</p>
+                                    <p>This is an automated email.<br />Jenkins Pipeline Build Started on: <strong>$BUILD_ID</strong><br />Project: $PROJECT_NAME - Build # $BUILD_NUMBER<br />Branch: $GIT_BRANCH</p>
+                                    <p>Thanks.</p>
+                                    <p>Regards,<br />DevOps Automation</p>',
+                        subject: 'Build Started in Jenkins Pipeline : $PROJECT_NAME - Build # $BUILD_NUMBER',
+                        mimeType: 'text/html',
+                        to: '$DEFAULT_RECIPIENTS'
+                    fi
                 }
             }
         }
 
-        stage('CheckoutModule1') {
-            steps {
-            echo sh(script: 'env|sort', returnStdout: true)
-                sh 'mkdir -p temp'
-                dir("temp")
-                {
-                    git branch: "${BRANCH_NAME}",
-                    credentialsId: 'GIT_CREDENTIAL',
-                    url: 'https://github.com/devkhchua/config.service.git'
+        //         stage('CheckoutModule1') {
+        //             steps {
+        //                 sh 'mkdir -p temp'
+        //                 dir("temp") {
+        //                     git branch: "${BRANCH_NAME}",
+        //                         credentialsId: 'GIT_CREDENTIAL',
+        //                         url: 'https://github.com/devkhchua/config.service.git'
+        //
+        //                     sh 'mvn install'
+        //                 }
+        //             }
+        //         }
 
-                    sh 'mvn install'
-                }
-            }
-        }
+        //         stage('Building Package') {
+        //             steps {
+        //                 sh 'mvn clean package'
+        //             }
+        //         }
+        //
+        //         stage('Running Tests') {
+        //             steps {
+        //                 sh 'mvn test'
+        //
+        //                 echo sh(script: 'env|sort', returnStdout: true)
+        //             }
+        //         }
 
-//         stage('Building Package') {
-//             steps {
-//                 sh 'mvn clean package'
-//             }
-//         }
-//
-//         stage('Running Tests') {
-//             steps {
-//                 sh 'mvn test'
-//
-//                 echo sh(script: 'env|sort', returnStdout: true)
-//             }
-//         }
-
-/*         stage('Building Docker Image') {
-            steps {
-                script {
-                    dockerImage = docker.build imagename
-                }
-            }
-        } */
-
-/*         stage('Deploying Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('', registryCredential) {
-                        dockerImage.push('latest')
+        /*         stage('Building Docker Image') {
+                    steps {
+                        script {
+                            dockerImage = docker.build imagename
+                        }
                     }
-                }
-            }
-        } */
+                } */
 
-/*         stage('Removing Unused Docker Image') {
-            steps {
-                sh "docker rmi $imagename:latest"
-            }
-        } */
+        /*         stage('Deploying Docker Image') {
+                    steps {
+                        script {
+                            docker.withRegistry('', registryCredential) {
+                                dockerImage.push('latest')
+                            }
+                        }
+                    }
+                } */
+
+        /*         stage('Removing Unused Docker Image') {
+                    steps {
+                        sh "docker rmi $imagename:latest"
+                    }
+                } */
 
         /* stage ('Deploy into Kubernetes') {
             steps{
