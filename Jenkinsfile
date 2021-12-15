@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        branch = ${GIT_BRANCH#*/}
+        branch = ${GIT_LOCAL_BRANCH}
         imagename = "devkhchua/api.gateway"
         registryCredential = 'docker_credentials'
         dockerImage = ''
