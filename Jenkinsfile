@@ -51,7 +51,10 @@ pipeline {
                     steps {
                         script {
                             TAG = "1.1.0"
-                            dockerImage = docker.build imagename + "${TAG}"
+                            sh '''
+                               echo ${TAG}
+                            '''
+                            dockerImage = docker.build imagename + ":${TAG}"
                         }
                     }
                 }
