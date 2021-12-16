@@ -16,7 +16,7 @@ pipeline {
                     env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
 
                     TAG = sh (
-                             script: echo "1.1.0" | tr -d '"' | awk '{var=$1+=1; print var}',
+                             script: echo """1.1.0""" | tr -d '"' | awk '{var=$1+=1; print var}',
                              returnStdout: true
                     ).trim()
 
