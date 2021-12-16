@@ -14,11 +14,10 @@ pipeline {
                     def dockerHome = tool 'Docker'
                     def mavenHome = tool 'Maven3'
                     env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
-
-                    TAG = sh (
-                             script: echo \\'1.1.0\\' | tr -d \\'"\\' | awk \\'{var=$1+=1; print var}\\',
-                             returnStdout: true
-                    ).trim()
+                    TAG = ""
+                    sh '''
+                        ${TAG} = aws ecr describe-images --output json --repository-name cdx-otp --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' | tr -d '"' | awk '{var=$1+1; print var}'
+                    '''
 
                     echo ${TAG}
                 }
