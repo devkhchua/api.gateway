@@ -16,13 +16,10 @@ pipeline {
                     env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
 
                     echo sh(script: 'env|sort', returnStdout: true)
-                    if (env.GIT_BRANCH.contains("master")) {
-                    echo 'build for deployment'
-                    emailext body: 'Dear, </br> This is ',
-                        subject: 'Build Started in Jenkins Pipeline : $PROJECT_NAME - Build # $BUILD_NUMBER',
-                        mimeType: 'text/html',
-                        to: '$DEFAULT_RECIPIENTS'
-                    }
+                    def tag = "1.1.0"
+                    tag=$((tag+1))
+
+                    echo ${tag}
                 }
             }
         }
