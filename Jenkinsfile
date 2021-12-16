@@ -53,9 +53,10 @@ pipeline {
                             TAG = "1.1.0"
                             echo TAG
                              TAG = sh (
-                              script: '''echo $TAG''',
+                              script: '''echo "1.1.1''',
                               returnStdout: true
                               )
+                            echo TAG
                             dockerImage = docker.build imagename + ":${TAG}"
                         }
                     }
