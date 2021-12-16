@@ -52,7 +52,7 @@ pipeline {
                         script {
                             TAG = "1.1.0"
                             sh '''
-                               echo ${TAG}
+                               TAG = echo "1.1.2"
                             '''
                             dockerImage = docker.build imagename + ":${TAG}"
                         }
