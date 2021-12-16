@@ -51,10 +51,11 @@ pipeline {
                     steps {
                         script {
                             TAG = "1.1.0"
-                            TAG = sh (
-                             script: 'echo 1.1.2',
-                             returnStdout: true
-                             )
+                            echo TAG
+//                             TAG = sh (
+//                              script: 'echo 1.1.2',
+//                              returnStdout: true
+//                              )
                             dockerImage = docker.build imagename + ":${TAG}"
                         }
                     }
