@@ -15,11 +15,12 @@ pipeline {
                     def mavenHome = tool 'Maven3'
                     env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
 
-                    echo sh(script: 'env|sort', returnStdout: true)
-                    def tag = "1.1.0"
-                    tag=$((tag+1))
+                    TAG = sh (
+                             script: 'aws ecr describe-images --output json --repository-name cdx-otp --query \'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]\'' | tr -d '"' | awk '{var=$1+=1; print var}',
+                             returnStdout: true
+                    ).trim()
 
-                    echo ${tag}
+                    echo ${TAG}
                 }
             }
         }
