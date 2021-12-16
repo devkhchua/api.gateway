@@ -53,7 +53,7 @@ pipeline {
                             TAG = "1.1.0"
                             echo TAG
                              TAG = sh (
-                              script: '''echo "1.1.1"''',
+                              script: '''echo "1.1.0" | awk \'{var=$1+=1; print var}\'''',
                               returnStdout: true
                               ).trim()
                             echo TAG
