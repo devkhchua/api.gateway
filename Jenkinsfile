@@ -16,7 +16,7 @@ pipeline {
                     env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
 
                     TAG = sh (
-                             script: 'aws ecr describe-images --output json --repository-name cdx-otp --query \'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]\'' | tr -d '""' | awk '{var=$1+=1; print var}',
+                             script: 'aws ecr describe-images --output json --repository-name cdx-otp --query \'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]\'' | tr -d '\\"' | awk '{var=$1+=1; print var}',
                              returnStdout: true
                     ).trim()
 
