@@ -5,20 +5,13 @@ pipeline {
         imagename = "devkhchua/api.gateway"
         registryCredential = 'docker_credentials'
         dockerImage = ''
+                            def dockerHome = tool 'Docker'
+                            def mavenHome = tool 'Maven3'
+                            env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
     }
 
     agent any
     stages {
-        stage('Initialize') {
-            steps {
-                echo env.GIT_BRANCH
-                script {
-                    def dockerHome = tool 'Docker'
-                    def mavenHome = tool 'Maven3'
-                    env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
-                }
-            }
-        }
 
         //         stage('CheckoutModule1') {
         //             steps {
@@ -33,12 +26,12 @@ pipeline {
         //             }
         //         }
 
-        //         stage('Building Package') {
-        //             steps {
-        //                 sh 'mvn clean package'
-        //             }
-        //         }
-        //
+                 stage('Building Package') {
+                     steps {
+                         sh 'mvn clean package'
+                     }
+                 }
+
         //         stage('Running Tests') {
         //             steps {
         //                 sh 'mvn test'
